@@ -67,10 +67,7 @@ export function getWeatherData(): Promise<any> {
         return response.json();
       })
       .then((data) => {
-        let weatherHash: Map<string, WeatherData[]> = new Map<
-          string,
-          WeatherData[]
-        >();
+        let tempResult: WeatherData[] = [];
         for (var i = 0; i < data.data.length; i++) {
           let item: any = data.data[i];
           let tempItem: WeatherData = {
@@ -79,23 +76,20 @@ export function getWeatherData(): Promise<any> {
             description: item.weather.description,
             icon: item.weather.icon,
           };
-          let date: string = item.datetime.substr(0, 10);
-          weatherHash.set(weatherHash.get(date).push(tempItem));
+          tempResult.push(tempItem);
         }
+        const finalResult: any = tempResult.reduce(function (r, a) {
+          let date: string = a.datetime.substr(0, 10);
+          r[date] = r[date] || [];
+          r[date].push(a);
+          return r;
+        }, Object.create(null));
 
-        let result: WeatherData[][] = [];
-        Object.keys(weatherHash).forEach((key) => {
-          let tempResult: WeatherData[] = [];
-          let mini: number = 100;
-          let maxi: number = 0;
-          weatherHash[key].forEach((item) => {
-            mini = item.temp < mini ? item.temp : mini;
-            maxi = item.temp > maxi ? item.temp : maxi;
-            tempResult.push(item);
-          });
-          result.push(tempResult);
+        let finalArray: WeatherData[] = [];
+        Object.keys(finalResult).forEach((key) => {
+          finalArray.push(finalResult[key]);
         });
-        resolve(result);
+        resolve(finalArray);
       });
   });
 }
