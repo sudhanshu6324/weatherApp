@@ -1,5 +1,4 @@
-import { WeatherData } from "./CardList";
-import { rejects } from "assert";
+import { WeatherData } from "./CustomCard";
 
 export function getDayString(num: number): string {
   switch (num) {
@@ -29,29 +28,29 @@ export interface WeatherHash {
 //   return new Promise(async (resolve: any, reject: any) => {
 //     const response: any = await fetch(address);
 //     const data = await response.json();
-//     let weatherHash: WeatherHash = {};
-//     for (var i = 0; i < data.data.length; i++) {
-//       let item: any = data.data[i];
-//       let tempItem: WeatherData = {
-//         datetime: item.datetime,
-//         temp: item.temp,
-//         description: item.weather.description,
-//         icon: item.weather.icon,
-//       };
-//       let date: string = item.datetime.substr(0, 10);
-//       console.log(date);
-//       weatherHash[date].push(tempItem);
-//     }
-//     let result: WeatherData[][] = [];
-//     Object.keys(weatherHash).forEach((key) => {
-//       let tempResult: WeatherData[] = [];
-//       let mini: number = 100;
-//       let maxi: number = 0;
-//       weatherHash[key].forEach((item) => {
-//         mini = item.temp < mini ? item.temp : mini;
-//         maxi = item.temp > maxi ? item.temp : maxi;
-//         tempResult.push(item);
-//       });
+// let weatherHash: WeatherHash = {};
+// for (var i = 0; i < data.data.length; i++) {
+//   let item: any = data.data[i];
+//   let tempItem: WeatherData = {
+//     datetime: item.datetime,
+//     temp: item.temp,
+//     description: item.weather.description,
+//     icon: item.weather.icon,
+//   };
+//   let date: string = item.datetime.substr(0, 10);
+//   console.log(date);
+//   weatherHash[date].push(tempItem);
+// }
+// let result: WeatherData[][] = [];
+// Object.keys(weatherHash).forEach((key) => {
+//   let tempResult: WeatherData[] = [];
+//   let mini: number = 100;
+//   let maxi: number = 0;
+//   weatherHash[key].forEach((item) => {
+//     mini = item.temp < mini ? item.temp : mini;
+//     maxi = item.temp > maxi ? item.temp : maxi;
+//     tempResult.push(item);
+//   });
 //       result.push(tempResult);
 //     });
 //     resolve(data);
@@ -68,23 +67,35 @@ export function getWeatherData(): Promise<any> {
         return response.json();
       })
       .then((data) => {
-        // Here you need to use an temporary array to store NeededInfo only
-        let tmpArray = [];
-
+        let weatherHash: Map<string, WeatherData[]> = new Map<
+          string,
+          WeatherData[]
+        >();
         for (var i = 0; i < data.data.length; i++) {
-          tmpArray.push(data.data[i]);
-        }
-        let weatherData: WeatherData[] = [];
-        tmpArray.forEach((item) => {
-          let tempitem: WeatherData = {
+          let item: any = data.data[i];
+          let tempItem: WeatherData = {
             datetime: item.datetime,
             temp: item.temp,
             description: item.weather.description,
             icon: item.weather.icon,
           };
-          weatherData.push(tempitem);
+          let date: string = item.datetime.substr(0, 10);
+          weatherHash.set(weatherHash.get(date).push(tempItem));
+        }
+
+        let result: WeatherData[][] = [];
+        Object.keys(weatherHash).forEach((key) => {
+          let tempResult: WeatherData[] = [];
+          let mini: number = 100;
+          let maxi: number = 0;
+          weatherHash[key].forEach((item) => {
+            mini = item.temp < mini ? item.temp : mini;
+            maxi = item.temp > maxi ? item.temp : maxi;
+            tempResult.push(item);
+          });
+          result.push(tempResult);
         });
-        resolve(weatherData);
+        resolve(result);
       });
   });
 }
