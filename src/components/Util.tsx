@@ -24,39 +24,6 @@ export interface WeatherHash {
   [date: string]: WeatherData[];
 }
 
-// export async function http(address: string): Promise<any> {
-//   return new Promise(async (resolve: any, reject: any) => {
-//     const response: any = await fetch(address);
-//     const data = await response.json();
-// let weatherHash: WeatherHash = {};
-// for (var i = 0; i < data.data.length; i++) {
-//   let item: any = data.data[i];
-//   let tempItem: WeatherData = {
-//     datetime: item.datetime,
-//     temp: item.temp,
-//     description: item.weather.description,
-//     icon: item.weather.icon,
-//   };
-//   let date: string = item.datetime.substr(0, 10);
-//   console.log(date);
-//   weatherHash[date].push(tempItem);
-// }
-// let result: WeatherData[][] = [];
-// Object.keys(weatherHash).forEach((key) => {
-//   let tempResult: WeatherData[] = [];
-//   let mini: number = 100;
-//   let maxi: number = 0;
-//   weatherHash[key].forEach((item) => {
-//     mini = item.temp < mini ? item.temp : mini;
-//     maxi = item.temp > maxi ? item.temp : maxi;
-//     tempResult.push(item);
-//   });
-//       result.push(tempResult);
-//     });
-//     resolve(data);
-//   });
-// }
-
 export function getWeatherData(): Promise<any> {
   // this.UserList();
   return new Promise((resolve, reject) => {
