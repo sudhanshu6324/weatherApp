@@ -16,8 +16,20 @@ import {
   textStackTokens,
 } from "./StyleTokes";
 import { getDayString } from "./Util";
-
 import { WeatherCallout } from "./WeatherCallout";
+
+export type CustomCardProps = {
+  todayWeatherData: WeatherData[];
+  isActive: boolean;
+  key1: number;
+  activateMe(key1: number): void;
+};
+
+export type CustomCardState = {
+  minTemerature: number;
+  maxTemperature: number;
+  isCalloutVisible: boolean;
+};
 
 export interface WeatherData {
   datetime: string;
@@ -25,19 +37,6 @@ export interface WeatherData {
   description: string;
   icon: string;
 }
-
-type CustomCardProps = {
-  todayWeatherData: WeatherData[];
-  isActive: boolean;
-  key1: number;
-  activateMe(key1: number): void;
-};
-
-type CustomCardState = {
-  minTemerature: number;
-  maxTemperature: number;
-  isCalloutVisible: boolean;
-};
 
 export class CustomCard extends React.Component<
   CustomCardProps,
@@ -58,12 +57,13 @@ export class CustomCard extends React.Component<
       isCalloutVisible: false,
     };
   }
+
   public toggleIsCalloutVisible = () => {
-    console.log(this);
     this.setState((prevState) => ({
       isCalloutVisible: !this.state.isCalloutVisible,
     }));
   };
+
   public render(): JSX.Element {
     return (
       <Card

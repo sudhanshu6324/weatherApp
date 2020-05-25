@@ -6,10 +6,9 @@ import {
   SelectionMode,
   IColumn,
 } from "office-ui-fabric-react/lib/DetailsList";
-
 import { IDocument, DetailsListImageStyle } from "./WeatherCalloutStyles";
 
-type WeatherCalloutDetailsProps = {
+export type WeatherCalloutDetailsProps = {
   items: WeatherData[];
   isCalloutVisible: boolean;
   toggleIsCalloutVisible(): void;
@@ -69,7 +68,7 @@ export class WeatherCalloutDetailsList extends React.Component<
     },
     {
       key: "column4",
-      name: "Image",
+      name: "Icon",
       fieldName: "icon",
       minWidth: 70,
       maxWidth: 200,

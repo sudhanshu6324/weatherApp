@@ -4,14 +4,14 @@ import { WeatherData } from "./CustomCard";
 import { styles, calloutStyle } from "./WeatherCalloutStyles";
 import { WeatherCalloutDetailsList } from "./WeatheCalloutDetailsList";
 
-interface IDocument {
+export interface IDocument {
   datetime: string;
   description: string;
   temp: string;
   icon: string;
 }
 
-type WeatherCalloutProps = {
+export type WeatherCalloutProps = {
   items: WeatherData[];
   isCalloutVisible: boolean;
   toggleIsCalloutVisible(): void;
@@ -26,7 +26,7 @@ export class WeatherCallout extends React.Component<WeatherCalloutProps> {
           <Callout
             className={styles.callout}
             role="alertdialog"
-            gapSpace={0}
+            gapSpace={2}
             target={this.props.target}
             onDismiss={this.props.toggleIsCalloutVisible}
             setInitialFocus
