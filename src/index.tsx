@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import { CardList } from "./components/CardList";
+import { MainApp } from "./components/MainApp";
 // import { http } from "./components/Util";
 // import { CardListProps } from "./components/CardList";
 // import { TempCard } from "./components/TempCard";
@@ -16,7 +17,7 @@ import { CardList } from "./components/CardList";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CardList />
+    <MainApp />
   </React.StrictMode>,
   document.getElementById("root")
 );

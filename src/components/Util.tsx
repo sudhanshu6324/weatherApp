@@ -24,11 +24,13 @@ export interface WeatherHash {
   [date: string]: WeatherData[];
 }
 
-export function getWeatherData(): Promise<any> {
+export function getWeatherData(location: string): Promise<any> {
   // this.UserList();
   return new Promise((resolve, reject) => {
     fetch(
-      "https://api.weatherbit.io/v2.0/forecast/hourly?city=kolkata&key=63eade06d0b54c00a282e0b047200de0&hours=48"
+      "https://api.weatherbit.io/v2.0/forecast/hourly?city=" +
+        location +
+        "&key=30f56a2cdca14bb5919ab866d5e8a670&hours=48"
     )
       .then((response) => {
         return response.json();
