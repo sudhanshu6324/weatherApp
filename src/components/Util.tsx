@@ -60,4 +60,3 @@ export function getWeatherData(): Promise<any> {
       });
   });
 }
-
