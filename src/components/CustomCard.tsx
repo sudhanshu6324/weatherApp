@@ -1,9 +1,10 @@
 import * as React from "react";
-import { ActionButton, Text } from "office-ui-fabric-react";
+import { ActionButton, Text, Stack } from "office-ui-fabric-react";
 import { Card } from "@uifabric/react-cards";
 import ReactDOM from "react-dom";
 import {
   descriptionTextStyles,
+  tempTextStyles,
   getBackgroundImageCardSectionStyles,
   dateTextStyles,
   subduedTextStyles,
@@ -12,17 +13,18 @@ import {
   cardTokens,
   backgroundImageCardSectionTokens,
   attendantsCardSectionTokens,
+  textStackTokens,
 } from "./StyleTokes";
 import { getDayString } from "./Util";
 
 import { WeatherCallout } from "./WeatherCallout";
 
-export type WeatherData = {
+export interface WeatherData {
   datetime: string;
   temp: number;
   description: string;
   icon: string;
-};
+}
 
 type CustomCardProps = {
   todayWeatherData: WeatherData[];
@@ -89,9 +91,14 @@ export class CustomCard extends React.Component<
           <Text variant="small" styles={subduedTextStyles}>
             Weather Description
           </Text>
-          <Text styles={descriptionTextStyles}>
-            {this.props.todayWeatherData[0].description}
-          </Text>
+          <Stack horizontal tokens={textStackTokens}>
+            <Text styles={descriptionTextStyles}>
+              {this.props.todayWeatherData[0].description}
+            </Text>
+            <Text styles={tempTextStyles}>
+              Cur Temp : {this.props.todayWeatherData[0].temp}
+            </Text>
+          </Stack>
         </Card.Section>
 
         <Card.Section horizontal tokens={attendantsCardSectionTokens}>
@@ -104,6 +111,7 @@ export class CustomCard extends React.Component<
             styles={actionButtonStyles2}
           />
         </Card.Section>
+
         <WeatherCallout
           items={this.props.todayWeatherData}
           isCalloutVisible={this.state.isCalloutVisible}

@@ -38,7 +38,7 @@ export function getWeatherData(): Promise<any> {
         for (var i = 0; i < data.data.length; i++) {
           let item: any = data.data[i];
           let tempItem: WeatherData = {
-            datetime: item.datetime,
+            datetime: item.timestamp_local,
             temp: item.temp,
             description: item.weather.description,
             icon: item.weather.icon,
