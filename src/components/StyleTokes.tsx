@@ -4,7 +4,7 @@ import {
   ICardSectionStyles,
   ICardSectionTokens,
 } from "@uifabric/react-cards";
-
+import { IStackTokens } from "office-ui-fabric-react";
 import { FontWeights } from "@uifabric/styling";
 
 export const descriptionTextStyles: ITextStyles = {
@@ -13,6 +13,16 @@ export const descriptionTextStyles: ITextStyles = {
     fontWeight: FontWeights.semibold,
   },
 };
+export const tempTextStyles: ITextStyles = {
+  root: {
+    color: "red",
+    fontWeight: FontWeights.semibold,
+    position: "relative",
+    right: 0,
+  },
+};
+
+export const textStackTokens: IStackTokens = { childrenGap: 90 };
 
 export function getBackgroundImageCardSectionStyles(
   imagePath: string
@@ -23,7 +33,7 @@ export function getBackgroundImageCardSectionStyles(
       backgroundImage: `url(${imgPath})`,
       backgroundPosition: "center center",
       backgroundSize: "cover",
-      height: 144,
+      height: 244,
     },
   };
 }
@@ -86,4 +96,5 @@ export const backgroundImageCardSectionTokens: ICardSectionTokens = {
 };
 export const attendantsCardSectionTokens: ICardSectionTokens = {
   childrenGap: 6,
+  padding: 20,
 };
